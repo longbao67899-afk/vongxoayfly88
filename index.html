@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vòng Quay FLY88</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+body {
+  background: url("https://image.dienthoaivui.com.vn/x,webp,q90/https://dashboard.dienthoaivui.com.vn/uploads/dashboard/editor_upload/hinh-nen-than-tai-65.jpg");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  font-family: 'Arial', sans-serif;
+  overflow-x: hidden;
+}
+
+.fly88-banner {
+  max-width: 700px;
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 20px;
+  background: linear-gradient(90deg, #ffb703, #fb8500);
+  text-align: center;
+  box-shadow: 0 0 25px rgba(255, 183, 3, 0.8);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
+.hidden-section { display: none !important; }
+
+.wheel-stage {
+  background: rgba(139, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  border-radius: 40px;
+  padding: 30px;
+  border: 4px solid #ffd700;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+}
+
+.wheel-container {
+  position: relative;
+  width: 320px;
+  height: 320px;
+  margin: 0 auto;
+}
+
+#wheelCanvas {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 10px solid #ffd700;
+  transition: transform 8s cubic-bezier(0.15, 0, 0.15, 1);
+  background-color: #fff;
+}
+
+.pointer {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px;
+  z-index: 50;
+  filter: drop-shadow(0 5px 10px rgba(0,0,0,0.5));
+}
+
+.live-feed {
+  width: 230px;
+  height: 450px;
+  background: rgba(40, 0, 0, 0.9);
+  border: 3px solid #ffd700;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+}
+
+.feed-header {
+  background: linear-gradient(to bottom, #ff0000, #b70000);
+  color: #fff;
+  text-align: center;
+  padding: 12px;
+  font-weight: 900;
+  border-bottom: 3px solid #ffd700;
+  text-transform: uppercase;
+}
+
+.feed-container {
+  height: 385px;
+  overflow: hidden;
+  position: relative;
+}
+
+.feed-content {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  animation: scrollFeed 60s linear infinite;
+}
+
+@keyframes scrollFeed {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-50%); }
+}
+
+.win-item {
+  background: linear-gradient(135deg, rgba(255,215,0,0.1) 0%, rgba(0,0,0,0.3) 100%);
+  border-left: 4px solid #ffd700;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.glow-text {
+  color: #ffd700;
+  text-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
+  font-weight: 800;
+}
+
+.li-xi-modal {
+  background: #e63946;
+  border: 5px solid #ffd700;
+  border-radius: 25px;
+  position: relative;
+  overflow: hidden;
+  max-width: 320px;
+  width: 100%;
+  box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+
+.li-xi-top {
+  height: 120px;
+  background: #bc1823;
+  border-bottom: 4px solid #ffd700;
+  border-radius: 0 0 50% 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.mega-win-effect {
+  animation: mega-glow 0.6s infinite alternate;
+}
+
+@keyframes mega-glow {
+  from { box-shadow: 0 0 30px #ff0, 0 0 50px #f00; }
+  to { box-shadow: 0 0 50px #ff0, 0 0 80px #f00; }
+}
+</style>
+</head>
+
+<body class="flex flex-col items-center p-4">
+
+<!-- LOGO -->
+<img src="https://i.ibb.co/tMG3CDd2/title1.png" alt="FLY88" class="w-full max-w-[550px] my-6 drop-shadow-2xl">
+
+<div class="mb-6">
+    <button onclick="showGuide()" class="px-10 py-2 bg-gradient-to-r from-red-600 to-red-800 border-2 border-yellow-400 text-yellow-300 rounded-full font-black hover:scale-105 transition shadow-xl uppercase italic">
+        🔥 HƯỚNG DẪN QUAY 🔥
+    </button>
+</div>
+
+<!-- PHẦN 1: NHẬP THÔNG TIN -->
+<div id="info-step" class="w-full max-w-4xl flex flex-col items-center">
+    <div class="flex flex-col sm:flex-row gap-4 items-center mb-8 w-full justify-center">
+        <div class="w-full sm:w-auto">
+          <input type="text" id="nameInput"
+            placeholder="Nhập họ và tên (không dấu)..."
+            class="w-full sm:w-[320px] h-12 rounded-full px-6 bg-blue-500/40 text-white placeholder-white/70 border-2 border-blue-400 outline-none backdrop-blur-sm font-bold">
+        </div>
+      
+        <div class="w-full sm:w-auto">
+          <input type="tel" id="phoneInput"
+            placeholder="Nhập số điện thoại..."
+            class="w-full sm:w-[280px] h-12 rounded-full px-6 bg-blue-500/40 text-white placeholder-white/70 border-2 border-blue-400 outline-none backdrop-blur-sm font-bold">
+        </div>
+      
+        <button onclick="goToWheel()"
+          class="h-12 px-10 bg-gradient-to-r from-yellow-400 to-orange-600 text-red-900 rounded-full font-black hover:scale-105 transition shadow-2xl uppercase italic border-b-4 border-orange-800">
+          Tiếp tục
+        </button>
+    </div>
+</div>
+
+<!-- PHẦN 2: VÒNG QUAY -->
+<div id="wheel-step" class="hidden-section flex flex-col xl:flex-row items-center justify-center gap-8 w-full max-w-7xl">
+    <div class="live-feed">
+        <div class="feed-header">DANH SÁCH TRÚNG GIẢI</div>
+        <div class="feed-container">
+            <div id="leftFeed" class="feed-content p-3"></div>
+        </div>
+    </div>
+
+    <div class="wheel-stage w-full max-w-md">
+        <div class="wheel-container mb-8">
+            <img src="https://cdn-icons-png.flaticon.com/512/8213/8213010.png" class="pointer" alt="pointer">
+            <canvas id="wheelCanvas" width="500" height="500"></canvas>
+        </div>
+        <div class="space-y-4">
+            <input type="text" id="codeSpinner" placeholder="NHẬP MÃ CODE QUAY..."
+              class="w-full h-14 rounded-xl px-5 bg-white text-red-700 font-black border-4 border-yellow-500 outline-none text-center text-2xl uppercase">
+            <button id="spinBtn" onclick="doSpin()"
+              class="w-full h-16 bg-gradient-to-b from-red-500 to-red-700 text-white rounded-xl font-black text-3xl shadow-2xl active:scale-95 border-b-4 border-red-900 uppercase italic">
+              Quay Ngay
+            </button>
+        </div>
+    </div>
+
+    <div class="live-feed">
+        <div class="feed-header">VIP TRÚNG LỚN</div>
+        <div class="feed-container">
+            <div id="rightFeed" class="feed-content p-3"></div>
+        </div>
+    </div>
+</div>
+
+<div class="fly88-banner mt-12">
+  <a href="https://www.fly88a.win" target="_blank" class="block font-black text-lg">
+    🔥 ĐĂNG KÍ TÀI KHOẢN TẠI WWW.FLY88A.WIN ĐỂ QUAY 🔥
+  </a>
+</div>
+
+<!-- MODAL TRÚNG THƯỞNG -->
+<div id="resultModal" class="fixed inset-0 bg-black/95 hidden items-center justify-center z-[200] p-4">
+    <div id="modalBox" class="li-xi-modal">
+        <div class="li-xi-top">
+            <div class="w-16 h-16 bg-yellow-400 rounded-full border-4 border-red-800 flex items-center justify-center shadow-lg">
+                <span class="text-red-700 font-black text-3xl">福</span>
+            </div>
+        </div>
+        <div class="p-8 text-center text-white">
+            <h2 class="text-4xl font-black mb-1 uppercase italic text-yellow-300">CHÚC MỪNG</h2>
+            <p id="winnerName" class="text-xs font-bold mb-6 text-white/80 uppercase"></p>
+            <div class="text-[11px] uppercase tracking-widest text-yellow-200 mb-1">Bạn vừa nhận được:</div>
+            <div id="prizeResult" class="text-7xl font-black text-yellow-300 mb-4 drop-shadow-lg">0K</div>
+            <p class="text-xs italic text-yellow-100 mb-8 font-bold">Liên hệ admin để nhận giải</p>
+            <button onclick="window.location.reload()" class="w-full py-4 bg-yellow-400 text-red-900 font-black rounded-xl text-lg uppercase shadow-lg active:scale-95 transition">Xác Nhận</button>
+        </div>
+    </div>
+</div>
+
+<script>
+// Vòng quay đa sắc
+const prizes = ["8K", "18K", "28K", "188K", "388K", "588K", "888K", "1888K"];
+const bgColors = ["#E63946","#457B9D","#FFB703","#2A9D8F","#8338EC","#FB5607","#3A86FF","#FF006E"];
+
+// Bảo mật mã code bằng Base64 (Hệ thống tự động giải mã khi chạy)
+// Điều này giúp ngăn chặn việc tìm thấy mã trực tiếp khi dùng F12
+const _0x5f2e = {
+  // Giải 8K
+  "QTdCMks5TDE=":"8K","TTRONjhKMlA1":"8K","WDFDOVYzQjc=":"8K","UjVUMlk4VTQ=":"8K","UTlXSUVDUjc=":"8K","SzJMNUo4SDM=":"8K","WjZYNEMyVjk=":"8K","TjFNM0I1Vjc=":"8K","UDJPNElGVjg=":"8K","QTFTM0Q1Rjc=":"8K","RzlIN0o1SzM=":"8K","TDFLMkozSDQ=":"8K","WjlYOEM3VjY=":"8K","QjVONE0zUTI=":"8K","VzFFMlIzVDQ=":"8K",
+  // Giải 18K
+  "RjhHMkg5SjE=":"18K","SzRMOE0yTjU=":"18K","UDFPOUkzVTc=":"18K","WTVUMlI4RTQ=":"18K","QTlTMUQzRjc=":"18K","RzJINUo4SzM=":"18K","UTZXNEUyUjk=":"18K","VDFZM1U1STc=":"18K","TzJQNEw2Szg=":"18K","TTFOM0I1Vjc=":"18K","QzlYN1o1QTM=":"18K","UzFEMkYzRzQ=":"18K","SDlK Kellogg=":"18K","SDlKODs3TDY=":"18K","UDVONElVVTU=":"18K","WTFUMlIzRTQ=":"18K",
+  // Giải 28K
+  "SDhKMks5TDE=":"28K","UDRPOEk2VTU=":"28K","WTFUTVIzRTc=":"28K","QTVTMkQ4RjQ=":"28K","RzlIMUozSzc=":"28K","TDJLNUo4SDM=":"28K","WjZYNEMyVjk=":"28K","VjFCM041TTc=":"28K","UTJXNEU2Ujg=":"28K","VDFZM1U1STc=":"28K","TzlQN0w1SzM=":"28K","TTFOMkIzVjQ=":"28K","QzlYOFo3QTY=":"28K","UzVENGYzRzI=":"28K","SDFKMkszTDQ=":"28K",
+  // Giải 188K
+  "SzhMMk05TjE=":"188K","UTRXOEUyUjU=":"188K","VDFZOVUzSTc=":"188K","TzVQMkw4SzQ=":"188K","TTlOMUIzVjc=":"188K","QzJYNVo4QTM=":"188K","UzZENEYyRzk=":"188K","SDFKM0s1TDc=":"188K","UDJPNElGVjg=":"188K","WTFUM1I1RTc=":"188K","QTlTN0Q1RjM=":"188K","RzFIMkozSzQ=":"188K","TDlLOE03SDY=":"188K","UTVXNEUzUjI=":"188K","VDFZMlUzSTQ=":"188K",
+  // Giải 388K
+  "TThOMkI5VjE=":"388K","QzRYOFoyQTU=":"388K","UzFEOUYzRzc=":"388K","SDVTMks4TDQ=":"388K","UDlPMUkzVTc=":"388K","WTJUNVI4RTM=":"388K","QTZTNEQyRjk=":"388K","RzFIM0o1Szc=":"388K","TDJLNEo2SDg=":"388K","UTFXM0U1Ujc=":"388K","VDlZN1U1STM=":"388K","TzFQMkwzSzQ=":"388K","TTlOOEI3VjY=":"388K","QzVYNFozQTI=":"388K","UzFEMkYzRzQ=":"388K",
+  // Giải 588K
+  "UDhPMkk5VTE=":"588K","WTRUOFIyRTU=":"588K","QTFTOUQzRjc=":"588K","RzVIMko4SzQ=":"588K","TDlLMUozSDc=":"588K","UTJXNUU4UjM=":"588K","VDZZNFUySTk=":"588K","TzFQM0w1Szc=":"588K","TTJONEI2Vjg=":"588K","QzFYM1o1QTc=":"588K","UzlEN0Y1RzM=":"588K","SDFKMkszTDQ=":"588K","UDlPOEk3VTY=":"588K","WTVUNFJMREU=":"588K","WTVUNFIzRTI=":"588K","QTFTMkQzRjQ=":"588K",
+  // Giải 888K
+  "UzhEMkY5RzE=":"888K","SDRKOEsyTDU=":"888K","UDFPOUkzVTc=":"888K","WTVUMlI4RTQ=":"888K","QTlTMUQzRjc=":"888K","RzJINUo4SzM=":"888K","TDZKNEoySDk=":"888K","UTFXM0U1Ujc=":"888K","VDJZNFU2STg=":"888K","TzFQM0w1Szc=":"888K","TTlON0I1VjM=":"888K","QzFYMlozQTQ=":"888K","UzlEOEY3RzY=":"888K","SDVKNEszTDI=":"888K","UDFPMkkzVTQ=":"888K",
+  // Giải 1888K
+  "VzhFMlI5VDE=":"1888K","WTRVOEkyTzU=":"1888K"
+};
+
+// Hàm nội bộ để map lại mã đã nhập
+function _0x12ab(_input) {
+  for (let key in _0x5f2e) {
+    if (atob(key) === _input) return _0x5f2e[key];
+  }
+  return null;
+}
+
+const canvas = document.getElementById('wheelCanvas');
+const ctx = canvas.getContext('2d');
+let isSpinning = false;
+
+function drawWheel() {
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    const radius = centerX - 10;
+    const sliceAngle = (2 * Math.PI) / prizes.length;
+
+    prizes.forEach((prize, i) => {
+        const startAngle = i * sliceAngle;
+        const endAngle = startAngle + sliceAngle;
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+        ctx.fillStyle = bgColors[i];
+        ctx.fill();
+        ctx.strokeStyle = "#ffd700";
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        ctx.save();
+        ctx.translate(centerX, centerY);
+        ctx.rotate(startAngle + sliceAngle / 2);
+        ctx.textAlign = "right";
+        ctx.fillStyle = "#fff";
+        ctx.font = "bold 32px Arial";
+        ctx.shadowBlur = 4;
+        ctx.shadowColor = "black";
+        ctx.fillText(prize, radius - 30, 12);
+        ctx.restore();
+    });
+
+    ctx.beginPath();
+    ctx.arc(centerX, centerY, 50, 0, 2 * Math.PI);
+    ctx.fillStyle = "#fff";
+    ctx.fill();
+    ctx.strokeStyle = "#ffd700";
+    ctx.lineWidth = 6;
+    ctx.stroke();
+    ctx.fillStyle = "#d00000";
+    ctx.font = "bold 22px Arial";
+    ctx.textAlign = "center";
+    ctx.fillText("FLY88", centerX, centerY + 8);
+}
+
+function goToWheel() {
+    const name = document.getElementById('nameInput').value.trim();
+    const phone = document.getElementById('phoneInput').value.trim();
+    if (!name || !phone) { alert("Vui lòng nhập đầy đủ họ tên và SĐT!"); return; }
+    document.getElementById('info-step').classList.add('hidden-section');
+    document.getElementById('wheel-step').classList.remove('hidden-section');
+    generateFeeds();
+    drawWheel();
+}
+
+function generateFeeds() {
+    const left = document.getElementById('leftFeed');
+    const right = document.getElementById('rightFeed');
+    const players = ["TuanKiet", "HoangNam", "VietDung", "AnhDuy", "GiaBao", "HuuThang", "DuyManh", "MinhBach"];
+    const pList = ["8K", "18K", "28K", "88K", "188K", "388K", "588K", "888K"];
+    let content = "";
+    for(let i=0; i<40; i++) {
+        const p = players[Math.floor(Math.random()*players.length)] + Math.floor(Math.random()*99);
+        const val = pList[Math.floor(Math.random()*pList.length)];
+        content += `<div class="win-item"><div class="text-white text-xs font-bold mb-1">Thành viên: <span class="text-blue-300">${p}</span></div><div class="text-sm">Vừa trúng: <span class="glow-text text-lg">${val}</span></div></div>`;
+    }
+    left.innerHTML = content + content;
+    right.innerHTML = content + content;
+}
+
+function doSpin() {
+    if (isSpinning) return;
+    const code = document.getElementById('codeSpinner').value.trim().toUpperCase();
+    
+    // 1. Kiểm tra mã qua hàm bảo mật
+    const targetPrize = _0x12ab(code);
+    if (!targetPrize) { 
+        alert("Mã Code không chính xác!"); 
+        return; 
+    }
+
+    // 2. Kiểm tra mã đã sử dụng
+    const usedCodes = JSON.parse(localStorage.getItem('used_codes') || "[]");
+    if (usedCodes.includes(code)) {
+        alert("Mã này đã được sử dụng rồi!");
+        return;
+    }
+
+    const prizeIndex = prizes.indexOf(targetPrize);
+    isSpinning = true;
+    const sliceAngle = 360 / prizes.length;
+    const targetAngle = 360 - (prizeIndex * sliceAngle) - (sliceAngle / 2);
+    const totalRotation = (15 * 360) + (targetAngle - 270);
+
+    canvas.style.transform = `rotate(${totalRotation}deg)`;
+
+    setTimeout(() => {
+        isSpinning = false;
+        usedCodes.push(code);
+        localStorage.setItem('used_codes', JSON.stringify(usedCodes));
+
+        if (parseInt(targetPrize) >= 188) {
+            document.getElementById('modalBox').classList.add('mega-win-effect');
+        }
+
+        document.getElementById('winnerName').innerText = "Thành viên: " + document.getElementById('nameInput').value;
+        document.getElementById('prizeResult').innerText = targetPrize;
+        document.getElementById('resultModal').style.display = 'flex';
+    }, 8500);
+}
+
+function showGuide() { document.getElementById('guideModal').style.display = 'flex'; }
+function closeGuide() { document.getElementById('guideModal').style.display = 'none'; }
+</script>
+
+</body>
+</html>
