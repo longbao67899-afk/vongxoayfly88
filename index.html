@@ -172,13 +172,14 @@ body {
     <div class="flex flex-col sm:flex-row gap-4 items-center mb-8 w-full justify-center">
         <div class="w-full sm:w-auto">
           <input type="text" id="nameInput"
-            placeholder="Nhập họ và tên (không dấu)..."
+            placeholder="Nhập tên tài khoản FLY88..."
             class="w-full sm:w-[320px] h-12 rounded-full px-6 bg-blue-500/40 text-white placeholder-white/70 border-2 border-blue-400 outline-none backdrop-blur-sm font-bold">
         </div>
       
         <div class="w-full sm:w-auto">
           <input type="tel" id="phoneInput"
-            placeholder="Nhập số điện thoại..."
+            maxlength="10"
+            placeholder="Nhập số điện thoại (10 số)..."
             class="w-full sm:w-[280px] h-12 rounded-full px-6 bg-blue-500/40 text-white placeholder-white/70 border-2 border-blue-400 outline-none backdrop-blur-sm font-bold">
         </div>
       
@@ -252,7 +253,6 @@ const prizes = ["8K", "18K", "28K", "188K", "388K", "588K", "888K", "1888K"];
 const bgColors = ["#E63946","#457B9D","#FFB703","#2A9D8F","#8338EC","#FB5607","#3A86FF","#FF006E"];
 
 // Bảo mật mã code bằng Base64 (Hệ thống tự động giải mã khi chạy)
-// Điều này giúp ngăn chặn việc tìm thấy mã trực tiếp khi dùng F12
 const _0x5f2e = {
   // Giải 8K
   "QTdCMks5TDE=":"8K","TTRONjhKMlA1":"8K","WDFDOVYzQjc=":"8K","UjVUMlk4VTQ=":"8K","UTlXSUVDUjc=":"8K","SzJMNUo4SDM=":"8K","WjZYNEMyVjk=":"8K","TjFNM0I1Vjc=":"8K","UDJPNElGVjg=":"8K","QTFTM0Q1Rjc=":"8K","RzlIN0o1SzM=":"8K","TDFLMkozSDQ=":"8K","WjlYOEM3VjY=":"8K","QjVONE0zUTI=":"8K","VzFFMlIzVDQ=":"8K",
@@ -272,7 +272,6 @@ const _0x5f2e = {
   "VzhFMlI5VDE=":"1888K","WTRVOEkyTzU=":"1888K"
 };
 
-// Hàm nội bộ để map lại mã đã nhập
 function _0x12ab(_input) {
   for (let key in _0x5f2e) {
     if (atob(key) === _input) return _0x5f2e[key];
@@ -330,7 +329,19 @@ function drawWheel() {
 function goToWheel() {
     const name = document.getElementById('nameInput').value.trim();
     const phone = document.getElementById('phoneInput').value.trim();
-    if (!name || !phone) { alert("Vui lòng nhập đầy đủ họ tên và SĐT!"); return; }
+    
+    if (!name) { 
+        alert("Vui lòng nhập tên tài khoản FLY88!"); 
+        return; 
+    }
+    
+    // Kiểm tra số điện thoại có đúng 10 số không
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!phoneRegex.test(phone)) {
+        alert("Số điện thoại phải bao gồm đúng 10 chữ số!");
+        return;
+    }
+
     document.getElementById('info-step').classList.add('hidden-section');
     document.getElementById('wheel-step').classList.remove('hidden-section');
     generateFeeds();
@@ -356,14 +367,12 @@ function doSpin() {
     if (isSpinning) return;
     const code = document.getElementById('codeSpinner').value.trim().toUpperCase();
     
-    // 1. Kiểm tra mã qua hàm bảo mật
     const targetPrize = _0x12ab(code);
     if (!targetPrize) { 
         alert("Mã Code không chính xác!"); 
         return; 
     }
 
-    // 2. Kiểm tra mã đã sử dụng
     const usedCodes = JSON.parse(localStorage.getItem('used_codes') || "[]");
     if (usedCodes.includes(code)) {
         alert("Mã này đã được sử dụng rồi!");
@@ -387,7 +396,7 @@ function doSpin() {
             document.getElementById('modalBox').classList.add('mega-win-effect');
         }
 
-        document.getElementById('winnerName').innerText = "Thành viên: " + document.getElementById('nameInput').value;
+        document.getElementById('winnerName').innerText = "Tài khoản: " + document.getElementById('nameInput').value;
         document.getElementById('prizeResult').innerText = targetPrize;
         document.getElementById('resultModal').style.display = 'flex';
     }, 8500);
