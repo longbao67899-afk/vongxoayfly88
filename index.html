@@ -252,7 +252,6 @@ body {
 const prizes = ["8K", "18K", "28K", "188K", "388K", "588K", "888K", "1888K"];
 const bgColors = ["#E63946","#457B9D","#FFB703","#2A9D8F","#8338EC","#FB5607","#3A86FF","#FF006E"];
 
-// Bảo mật mã code bằng Base64 (Hệ thống tự động giải mã khi chạy)
 const _0x5f2e = {
   // Giải 8K
   "QTdCMks5TDE=":"8K","TTRONjhKMlA1":"8K","WDFDOVYzQjc=":"8K","UjVUMlk4VTQ=":"8K","UTlXSUVDUjc=":"8K","SzJMNUo4SDM=":"8K","WjZYNEMyVjk=":"8K","TjFNM0I1Vjc=":"8K","UDJPNElGVjg=":"8K","QTFTM0Q1Rjc=":"8K","RzlIN0o1SzM=":"8K","TDFLMkozSDQ=":"8K","WjlYOEM3VjY=":"8K","QjVONE0zUTI=":"8K","VzFFMlIzVDQ=":"8K",
@@ -261,7 +260,7 @@ const _0x5f2e = {
   // Giải 28K
   "SDhKMks5TDE=":"28K","UDRPOEk2VTU=":"28K","WTFUTVIzRTc=":"28K","QTVTMkQ4RjQ=":"28K","RzlIMUozSzc=":"28K","TDJLNUo4SDM=":"28K","WjZYNEMyVjk=":"28K","VjFCM041TTc=":"28K","UTJXNEU2Ujg=":"28K","VDFZM1U1STc=":"28K","TzlQN0w1SzM=":"28K","TTFOMkIzVjQ=":"28K","QzlYOFo3QTY=":"28K","UzVENGYzRzI=":"28K","SDFKMkszTDQ=":"28K",
   // Giải 188K
-  "SzhMMk05TjE=":"188K","UTRXOEUyUjU=":"188K","VDFZOVUzSTc=":"188K","TzVQMkw4SzQ=":"188K","TTlOMUIzVjc=":"188K","QzJYNVo4QTM=":"188K","UzZENEYyRzk=":"188K","SDFKM0s1TDc=":"188K","UDJPNElGVjg=":"188K","WTFUM1I1RTc=":"188K","QTlTN0Q1RjM=":"188K","RzFIMkozSzQ=":"188K","TDlLOE03SDY=":"188K","UTVXNEUzUjI=":"188K","VDFZMlUzSTQ=":"188K",
+  "SzhMMk05TjE=":"188K","UTRXOEUyUjU=":"188K","VDFZOVUzSTc=":"188K","TzVQMkw4SzQ=":"188K","TTlOMUIzVjc=":"188K","QzJYNVo4QTM=":"188K","UzZENEYyRzk=":"188K","SDFKM0s1TDc=":"188K","UDJPNElGVjg=":"188K","WTFUM3I1RTc=":"188K","QTlTN0Q1RjM=":"188K","RzFIMkozSzQ=":"188K","TDlLOE03SDY=":"188K","UTVXNEUzUjI=":"188K","VDFZMlUzSTQ=":"188K",
   // Giải 388K
   "TThOMkI5VjE=":"388K","QzRYOFoyQTU=":"388K","UzFEOUYzRzc=":"388K","SDVTMks4TDQ=":"388K","UDlPMUkzVTc=":"388K","WTJUNVI4RTM=":"388K","QTZTNEQyRjk=":"388K","RzFIM0o1Szc=":"388K","TDJLNEo2SDg=":"388K","UTFXM0U1Ujc=":"388K","VDlZN1U1STM=":"388K","TzFQMkwzSzQ=":"388K","TTlOOEI3VjY=":"388K","QzVYNFozQTI=":"388K","UzFEMkYzRzQ=":"388K",
   // Giải 588K
@@ -329,18 +328,9 @@ function drawWheel() {
 function goToWheel() {
     const name = document.getElementById('nameInput').value.trim();
     const phone = document.getElementById('phoneInput').value.trim();
-    
-    if (!name) { 
-        alert("Vui lòng nhập tên tài khoản FLY88!"); 
-        return; 
-    }
-    
-    // Kiểm tra số điện thoại có đúng 10 số không
+    if (!name) { alert("Vui lòng nhập tên tài khoản FLY88!"); return; }
     const phoneRegex = /^[0-9]{10}$/;
-    if (!phoneRegex.test(phone)) {
-        alert("Số điện thoại phải bao gồm đúng 10 chữ số!");
-        return;
-    }
+    if (!phoneRegex.test(phone)) { alert("Số điện thoại phải bao gồm đúng 10 chữ số!"); return; }
 
     document.getElementById('info-step').classList.add('hidden-section');
     document.getElementById('wheel-step').classList.remove('hidden-section');
@@ -363,33 +353,47 @@ function generateFeeds() {
     right.innerHTML = content + content;
 }
 
+// Hàm tính toán góc quay chính xác để dừng đúng ô
 function doSpin() {
     if (isSpinning) return;
-    const code = document.getElementById('codeSpinner').value.trim().toUpperCase();
+    const codeInput = document.getElementById('codeSpinner').value.trim().toUpperCase();
     
-    const targetPrize = _0x12ab(code);
+    // Tìm giải thưởng dựa trên mã code
+    const targetPrize = _0x12ab(codeInput);
     if (!targetPrize) { 
         alert("Mã Code không chính xác!"); 
         return; 
     }
 
     const usedCodes = JSON.parse(localStorage.getItem('used_codes') || "[]");
-    if (usedCodes.includes(code)) {
+    if (usedCodes.includes(codeInput)) {
         alert("Mã này đã được sử dụng rồi!");
         return;
     }
 
     const prizeIndex = prizes.indexOf(targetPrize);
     isSpinning = true;
+    
+    // Mỗi ô chiếm (360 / số lượng ô) độ. Ví dụ 8 ô thì 1 ô là 45 độ.
     const sliceAngle = 360 / prizes.length;
-    const targetAngle = 360 - (prizeIndex * sliceAngle) - (sliceAngle / 2);
-    const totalRotation = (15 * 360) + (targetAngle - 270);
+    
+    // Tính toán góc dừng:
+    // Kim chỉ ở hướng 12h (270 độ trong hệ trục canvas nếu bắt đầu từ 3h).
+    // Chúng ta cần xoay vòng quay sao cho ô prizeIndex nằm dưới kim.
+    // Góc của ô prizeIndex là (prizeIndex * sliceAngle) độ.
+    // Dịch chuyển thêm sliceAngle/2 để kim nằm giữa ô.
+    const stopAt = 360 - (prizeIndex * sliceAngle) - (sliceAngle / 2);
+    
+    // 10 vòng quay khởi động (3600 độ) + góc dừng tính toán
+    // Trừ đi 90 hoặc 270 tùy thuộc vào điểm bắt đầu vẽ canvas. 
+    // Ở đây vẽ ô đầu tiên tại 0 độ (hướng 3h), kim ở hướng 12h (270 độ).
+    const totalRotation = (10 * 360) + stopAt - 90;
 
     canvas.style.transform = `rotate(${totalRotation}deg)`;
 
     setTimeout(() => {
         isSpinning = false;
-        usedCodes.push(code);
+        usedCodes.push(codeInput);
         localStorage.setItem('used_codes', JSON.stringify(usedCodes));
 
         if (parseInt(targetPrize) >= 188) {
@@ -399,7 +403,7 @@ function doSpin() {
         document.getElementById('winnerName').innerText = "Tài khoản: " + document.getElementById('nameInput').value;
         document.getElementById('prizeResult').innerText = targetPrize;
         document.getElementById('resultModal').style.display = 'flex';
-    }, 8500);
+    }, 8500); // Đợi 8.5s (8s animation + 0.5s delay)
 }
 
 function showGuide() { document.getElementById('guideModal').style.display = 'flex'; }
