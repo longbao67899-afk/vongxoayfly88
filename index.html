@@ -285,27 +285,93 @@ body {
 </div>
 
 <script>
-const prizes = ["8K", "18K", "28K", "188K", "388K", "588K", "888K", "1888K"];
+const prizes = ["8K", "18K", "28K", "38K", "88K", "188K", "588K", "888K", "1888K"];
 const bgColors = ["#E63946","#457B9D","#FFB703","#2A9D8F","#8338EC","#FB5607","#3A86FF","#FF006E"];
 
-const _0x5f2e = {
-  "QTdCMks5TDE=":"8K", "TTRONjhKMlA1":"8K", "WDFDOVYzQjc=":"8K", "UjVUMlk4VTQ=":"8K", "UTlXSUVDUjc=":"8K",
-  "RjhHMkg5SjE=":"18K", "SzRMOE0yTjU=":"18K", "UDFPOUkzVTc=":"18K", "WTVUMlI4RTQ=":"18K", "QTlTMUQzRjc=":"18K",
-  "SDhKMks5TDE=":"28K", "UDRPOEk2VTU=":"28K", "WTFUTVIzRTc=":"28K", "QTVTMkQ4RjQ=":"28K", "RzlIMUozSzc=":"28K",
-  "SzhMMk05TjE=":"188K", "UTRXOEUyUjU=":"188K", "VDFZOVUzSTc=":"188K", "OVBNMkw4SzQ=":"188K", "TTlOMUIzVjc=":"188K",
-  "TThOMkI5VjE=":"388K", "QzRYOFoyQTU=":"388K", "UzFEOUYzRzc=":"388K", "SDVTMks4TDQ=":"388K", "UDlPMUkzVTc=":"388K",
-  "UDhPMkk5VTE=":"588K", "WTRUOFIyRTU=":"588K", "QTFTOUQzRjc=":"588K", "RzVIMko4SzQ=":"588K", "TDlLMUozSDc=":"588K",
-  "UzhEMkY5RzE=":"888K", "SDRKOEsyTDU=":"888K", "UDFPOUkzVTc=":"888K", "WTVUMlI4RTQ=":"888K", "QTlTMUQzRjc=":"888K",
-  "VzhFMlI5VDE=":"1888K", "WTRVOEkyTzU=":"1888K"
+// ====== DANH SÁCH CODE MỚI (20 CODE / MỆNH GIÁ) ======
+const CODE_MAP = {
+  "8K": [
+    "FLY8K001","FLY8K002","FLY8K003","FLY8K004","FLY8K005",
+    "FLY8K006","FLY8K007","FLY8K008","FLY8K009","FLY8K010",
+    "FLY8K011","FLY8K012","FLY8K013","FLY8K014","FLY8K015",
+    "FLY8K016","FLY8K017","FLY8K018","FLY8K019","FLY8K020"
+  ],
+  "18K": [
+    "FLY18K001","FLY18K002","FLY18K003","FLY18K004","FLY18K005",
+    "FLY18K006","FLY18K007","FLY18K008","FLY18K009","FLY18K010",
+    "FLY18K011","FLY18K012","FLY18K013","FLY18K014","FLY18K015",
+    "FLY18K016","FLY18K017","FLY18K018","FLY18K019","FLY18K020"
+  ],
+  "28K": [
+    "FLY28K001","FLY28K002","FLY28K003","FLY28K004","FLY28K005",
+    "FLY28K006","FLY28K007","FLY28K008","FLY28K009","FLY28K010",
+    "FLY28K011","FLY28K012","FLY28K013","FLY28K014","FLY28K015",
+    "FLY28K016","FLY28K017","FLY28K018","FLY28K019","FLY28K020"
+  ],
+  "38K": [
+    "FLY38K001","FLY38K002","FLY38K003","FLY38K004","FLY38K005",
+    "FLY38K006","FLY38K007","FLY38K008","FLY38K009","FLY38K010",
+    "FLY38K011","FLY38K012","FLY38K013","FLY38K014","FLY38K015",
+    "FLY38K016","FLY38K017","FLY38K018","FLY38K019","FLY38K020"
+  ],
+  "88K": [
+    "FLY88K001","FLY88K002","FLY88K003","FLY88K004","FLY88K005",
+    "FLY88K006","FLY88K007","FLY88K008","FLY88K009","FLY88K010",
+    "FLY88K011","FLY88K012","FLY88K013","FLY88K014","FLY88K015",
+    "FLY88K016","FLY88K017","FLY88K018","FLY88K019","FLY88K020"
+  ],
+  "188K": [
+    "FLY188K001","FLY188K002","FLY188K003","FLY188K004","FLY188K005",
+    "FLY188K006","FLY188K007","FLY188K008","FLY188K009","FLY188K010",
+    "FLY188K011","FLY188K012","FLY188K013","FLY188K014","FLY188K015",
+    "FLY188K016","FLY188K017","FLY188K018","FLY188K019","FLY188K020"
+  ],
+  "588K": [
+    "FLY588K001","FLY588K002","FLY588K003","FLY588K004","FLY588K005",
+    "FLY588K006","FLY588K007","FLY588K008","FLY588K009","FLY588K010",
+    "FLY588K011","FLY588K012","FLY588K013","FLY588K014","FLY588K015",
+    "FLY588K016","FLY588K017","FLY588K018","FLY588K019","FLY588K020"
+  ],
+  "888K": [
+    "FLY888K001","FLY888K002","FLY888K003","FLY888K004","FLY888K005",
+    "FLY888K006","FLY888K007","FLY888K008","FLY888K009","FLY888K010",
+    "FLY888K011","FLY888K012","FLY888K013","FLY888K014","FLY888K015",
+    "FLY888K016","FLY888K017","FLY888K018","FLY888K019","FLY888K020"
+  ],
+  "1888K": [
+    "FLY1888K001","FLY1888K002","FLY1888K003","FLY1888K004","FLY1888K005",
+    "FLY1888K006","FLY1888K007","FLY1888K008","FLY1888K009","FLY1888K010",
+    "FLY1888K011","FLY1888K012","FLY1888K013","FLY1888K014","FLY1888K015",
+    "FLY1888K016","FLY1888K017","FLY1888K018","FLY1888K019","FLY1888K020"
+  ]
 };
 
-function _0x12ab(_input) {
-  if (_input === "388") return "388K";
-  for (let key in _0x5f2e) {
-    if (atob(key) === _input) return _0x5f2e[key];
-  }
-  return null;
+// ====== LƯU CODE ĐÃ DÙNG (1 LẦN) ======
+let usedCodes = JSON.parse(localStorage.getItem("USED_CODES") || "[]");
+
+function saveUsedCodes() {
+  localStorage.setItem("USED_CODES", JSON.stringify(usedCodes));
 }
+
+// ====== KIỂM TRA CODE ======
+function checkCode(inputCode) {
+  inputCode = inputCode.toUpperCase();
+
+  // nếu code đã dùng rồi
+  if (usedCodes.includes(inputCode)) {
+    return { ok: false, msg: "Mã này đã được sử dụng rồi!" };
+  }
+
+  // tìm xem code thuộc mệnh giá nào
+  for (let prize in CODE_MAP) {
+    if (CODE_MAP[prize].includes(inputCode)) {
+      return { ok: true, prize: prize };
+    }
+  }
+
+  return { ok: false, msg: "Mã Code không chính xác!" };
+}
+
 
 const canvas = document.getElementById('wheelCanvas');
 const ctx = canvas.getContext('2d');
@@ -385,14 +451,20 @@ function generateFeeds() {
 function doSpin() {
     if (isSpinning) return;
     const codeInput = document.getElementById('codeSpinner').value.trim().toUpperCase();
-    const targetPrize = _0x12ab(codeInput);
-    
-    if (!targetPrize) { 
-        alert("Mã Code không chính xác!"); 
-        return; 
+
+    const result = checkCode(codeInput);
+    if (!result.ok) {
+        alert(result.msg);
+        return;
     }
 
-    const prizeIndex = prizes.indexOf(targetPrize);
+    const targetPrize = result.prize;
+
+    // đánh dấu code đã dùng
+    usedCodes.push(codeInput);
+    saveUsedCodes();
+
+const prizeIndex = prizes.indexOf(targetPrize);
     isSpinning = true;
     
     const sliceAngle = 360 / prizes.length;
